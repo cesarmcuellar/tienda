@@ -1,0 +1,46 @@
+{% extends "index.html" %}
+{% block encabezado %}
+    {% include "encabezado.html" %}
+{%endblock %}
+{% block menu %}
+    {% include "menu.html" %}
+{%endblock %}
+{% block contenido %}
+<div class="w-50 mt-3" style="margin: 0 auto">
+    <form action="/agregarCategoria/" method="post">
+        {% csrf_token %}
+        <div>
+            <h3 class="text-center bg-danger text-white">AGREGAR CATEGORÍA</h3>
+        </div>
+        <div class="form-floating">
+            <input type="text" name="txtNombre" id="txtNombre"
+            class="form-control" placeholder="Nombre" required>
+            <label for="txtNombre">Nombre Categoria</label>
+        </div>
+        <div>
+            <button class="btn btn-success mt-3">Agregar</button>
+        </div>
+    </form>
+    <div>
+        {% if mensaje %}
+            <script>
+                Swal.fire({
+                    title: 'Aregar Categoría',
+                    text: '{{mensaje}}',
+                    icon: 'info',                   
+                    confirmButtonColor: '#3085d6',                  
+                    confirmButtonText: 'Ok'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      location.href="/vistaCategorias/"
+                    }
+                  })
+            </script> 
+           
+        {% endif %}
+    </div>
+</div>
+{%endblock %}
+{% block piePagina %}
+    {% include "piePagina.html" %}
+{%endblock %}

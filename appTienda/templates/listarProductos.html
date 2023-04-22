@@ -1,0 +1,60 @@
+{% extends "index.html" %}
+{% block encabezado %}
+    {% include "encabezado.html" %}
+{%endblock %}
+{% block menu %}
+    {% include "menu.html" %}
+{%endblock %}
+{% block contenido %}
+    <br>
+    <div class="w-75" style="margin: 0 auto">
+        <h3 class="text-center">GESTIONAR PRODUCTOS</h3>
+        <a href="/vistaProducto/">
+            <button class="btn btn-success mb-2">Agregar</button>
+        </a>
+        <table id="tblProductos" class="table table-bordered table-striped" >
+            <thead class="bg-danger text-white fw-bold">
+                <tr class="text-center">
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Categoría</th>
+                    <th>Imagen</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>                 
+                {%for producto in listaProductos %}
+                    <tr>
+                        <td class="text-center">{{producto.proCodigo}}</td>
+                        <td>{{producto.proNombre}}</td>
+                        <td class="text-end">${{producto.proPrecio}}</td>                                      
+                        <td>{{producto.proCategoria.catNombre}}</td>                      
+                        <td class="text-center">
+                            <img src="../media/{{producto.proFoto}}" 
+                            width="50" height="50" alt="">
+                        </td>
+                        <td class="text-center" style="font-size:4vh">
+                            <a href="/consultarProducto/{{producto.id}}/">
+                                <i class="fa fa-edit text-warning"></i>
+                            </a>
+                            <i class="fa fa-trash text-danger" 
+                                onclick="abrirModalEliminar('{{producto.id}}')">
+                            </i>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+   </div>
+   <div>
+    {% if mensaje%}
+        <script>
+            Swal.fire("Gestión Productos",'{{mensaje}}',"info")
+        </script>
+    {% endif%}
+   </div>
+{%endblock %}
+{% block piePagina %}
+    {% include "piePagina.html" %}
+{%endblock %}
